@@ -1,25 +1,19 @@
-package facebook;
+package org.fbcmd4j;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Properties;
 import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import facebook.Utils;
+import org.fbcmd4j.Utils;
 
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 
 public class Main {
 	static final Logger logger = LogManager.getLogger(Main.class);
-	private static final String CONFIG_DIR = "config";
-	private static final String CONFIG_FILE = "fbcmd4j.properties";
 	private static final String APP_VERSION = "v1.0";
 
 	public static void main(String[] args) {
@@ -50,11 +44,11 @@ public class Main {
 							facebook = Utils.generate();
 							break;
 						case 1: 
-							 Utils.postFeed(facebook.getFeed(), scanner);
+							 Utils.postFeed(facebook.getFeed(), scanner, "neewsFeed");
 							break;
 						
 						case 2:
-							Utils.postFeed(facebook.getPosts(), scanner);
+							Utils.postFeed(facebook.getPosts(), scanner, "wall");
 							break;
 						case 3:
 							System.out.println("Escribe tu estado: ");

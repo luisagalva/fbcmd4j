@@ -1,4 +1,4 @@
-package facebook;
+package org.fbcmd4j;
 
 
 import java.awt.Desktop;
@@ -9,29 +9,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-import java.util.function.BiConsumer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import facebook4j.Facebook;
-import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
-import facebook4j.auth.AccessToken;
 import facebook4j.conf.ConfigurationBuilder;
 import facebook4j.Post;
 import facebook4j.ResponseList;
@@ -143,7 +136,7 @@ public class Utils {
 	}	
 	
 	
-	public static void postFeed(ResponseList<Post> feed, Scanner scanner ){
+	public static void postFeed(ResponseList<Post> feed, Scanner scanner, String nombreArchivo ){
 		for (Post p : feed) {
 				System.out.println("Story: " + p.getStory());
 				System.out.println("Mensaje: " + p.getMessage());
@@ -157,6 +150,49 @@ public class Utils {
 			
 			switch(selection){
 				case 1:
+					int n = 0;
+					List<Post> ps = new ArrayList<>();
+					
+					while(n <= 0) {
+						try {
+					System.out.println("Cuántos posts deseas guardar?");
+					n = Integer.parseInt(scanner.nextLine());					
+					if(n <= 0) {
+								System.out.println("Favor de ingresar un número válido");
+					} else {
+						for(int i = 0; i<n; i++) {
+					if(i>feed.size()-1) break;
+					ps.add(feed.get(i));
+					}
+					}
+					} catch(NumberFormatException e) {
+							logger.error(e);
+						}
+					}
+					File file = new File(nombreArchivo + ".txt");
+
+					try {
+			    		if(!file.exists()) {
+			    			file.createNewFile();
+			            }
+
+			    		FileOutputStream fos = new FileOutputStream(file);
+						for (Post p : ps) {
+							String msg = "";
+							if(p.getStory() != null)
+								msg += "Story: " + p.getStory() + "\n";
+							if(p.getMessage() != null)
+								msg += "Mensaje: " + p.getMessage() + "\n";
+							msg += "--------------------------------\n";
+							fos.write(msg.getBytes());
+						}
+						fos.close();
+
+						logger.info("Posts guardados en el archivo '" + file.getName() + "'.");
+						System.out.println("Posts guardados exitosamente en '" + file.getName() + "'.");
+					} catch (IOException e) {
+						logger.error(e);
+					}
 					
 					break;
 			
