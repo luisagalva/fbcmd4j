@@ -5,6 +5,5 @@
 	<classpathentry kind="lib" path="/Users/luisa/Documents/workspace/fbcmd4j/src/lib/facebook4j-core-2.4.10.jar"/>
 	<classpathentry kind="lib" path="/Users/luisa/Documents/workspace/fbcmd4j/src/lib/log4j-api-2.9.1.jar"/>
 	<classpathentry kind="lib" path="/Users/luisa/Documents/workspace/fbcmd4j/src/lib/log4j-core-2.9.1.jar"/>
-	<classpathentry kind="lib" path="/Users/luisa/Documents/workspace/fbcmd4j/src/lib/java-json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
