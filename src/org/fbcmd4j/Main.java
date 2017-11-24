@@ -20,7 +20,10 @@ public class Main {
 		logger.info("Iniciando app");
 		Facebook facebook = null;
 		
-		
+		int seleccion;
+		try (Scanner scanner = new Scanner(System.in)){
+			while(true){
+				
 				// Inicio Menu
 				System.out.format("Simple Facebook client %s\n\n", APP_VERSION);
 				System.out.println("Opciones: ");
